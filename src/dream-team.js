@@ -18,7 +18,10 @@ function createDreamTeam(members) {
   let firstLetters = [];
   if (Array.isArray(members)) {
     members.forEach(elem => {
+      
       if (typeof elem == 'string') {
+        elem = elem.trim();
+        console.log(elem);
         firstLetters.push(elem[0].toUpperCase());
       }
     });
@@ -32,3 +35,19 @@ function createDreamTeam(members) {
 module.exports = {
   createDreamTeam
 };
+
+createDreamTeam(['        Matt', ' Ann', 'Dmitry', 'Max']) 
+createDreamTeam([
+  '   William Alston ',
+  ' Paul Benacerraf',
+  '  Ross Cameron',
+  '       Gilles Deleuze',
+  '  Arda Denkel ',
+  '  Michael Devitt',
+  '  Kit Fine',
+  ' Nelson Goodman',
+  'David Kolb',
+  '   Saul Kripke',
+  '  Trenton Merricks',
+  '  Jay Rosenberg',
+]);
