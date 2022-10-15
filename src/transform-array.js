@@ -14,21 +14,27 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 function transform(arr) {
-  if (Array.isArray(arr) == false) throw new Error(`'arr' parameter must be an instance of the Array!`);
-  let newArray = arr;
-  for (i = 0; i < arr.length; i++) {
-    if (arr[i] == `--discard-next`) {
-      newArray.splice(i, 2)
-    } else if (arr[i] == `--discard-prev`) {
-      newArray.splice(i-1, 2)
-    } else if (arr[i] == `--double-next`) {
-      newArray[i] = arr[i+1];
+  if (!Array.isArray(arr)) {
+    throw new Error(`'arr' parameter must be an instance of the Array!`);
+  } else {
+    let newArray = arr.slice(0);
+    for (let i = 0; i < newArray.length; i++) {
+      if (newArray[i] == `--discard-next`) {
+        newArray.splice(i, 2);
+      } else if (newArray[i] == '--discard-prev') {
+        if (i = 0) {
+          newArray.slice(1, newArray.length);
+        } else {
+          newArray.splice(i-1, 2);
+        }
+      } else if (newArray[i] == `--double-next`) {
+        newArray[i] = newArray[i+1];
+      } else if (newArray[i] == `--double-prev`) {
+        newArray[i] = newArray[i-1];
+      }
     }
-    if (arr[i] == `--double-prev`) {
-      newArray[i] = arr[i-1];
-    }
+    return newArray;
   }
-return newArray;
 }
 
 module.exports = {
