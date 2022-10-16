@@ -18,22 +18,20 @@ function transform(arr) {
     throw new Error(`'arr' parameter must be an instance of the Array!`);
   } else {
     let newArray = arr.slice(0);
-    for (let i = 0; i < newArray.length; i++) {
-      if (newArray[i] == `--discard-next`) {
-        newArray.splice(i, 2);
-      } else if (newArray[i] == '--discard-prev') {
-        if (i = 0) {
-          newArray.slice(1, newArray.length);
-        } else {
-          newArray.splice(i-1, 2);
-        }
-      } else if (newArray[i] == `--double-next`) {
-        newArray[i] = newArray[i+1];
-      } else if (newArray[i] == `--double-prev`) {
-        newArray[i] = newArray[i-1];
+    newArray.forEach((el, i) => {
+      if (el == `--discard-next`) {
+        newArray[i] = undefined;
+        newArray[i + 1] = undefined;
+      } else if (el == '--discard-prev') {
+        newArray[i] = undefined;
+        newArray[i - 1] = undefined;
+      } else if (el == `--double-next`) {
+        newArray[i] = newArray[i + 1];
+      } else if (el == `--double-prev`) {
+        newArray[i] = newArray[i - 1];
       }
-    }
-    return newArray;
+    });
+    return newArray.filter(el => el !== undefined);
   }
 }
 
